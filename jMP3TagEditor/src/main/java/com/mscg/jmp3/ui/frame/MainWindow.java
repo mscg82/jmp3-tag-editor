@@ -12,6 +12,7 @@ import java.awt.event.ComponentListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowStateListener;
 import java.io.FileNotFoundException;
+import java.util.ServiceLoader;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -43,7 +44,6 @@ import com.mscg.jmp3.ui.listener.CloseWindowClickListener;
 import com.mscg.jmp3.ui.panel.EmbeddedCardProvider;
 import com.mscg.jmp3.ui.panel.FileChooseCard;
 import com.mscg.jmp3.ui.panel.FilenameOperationsCard;
-import com.mscg.jmp3.util.service.ServiceLoader;
 
 public class MainWindow extends MainWindowInterface implements ActionListener, ComponentListener, WindowStateListener {
 
@@ -144,7 +144,7 @@ public class MainWindow extends MainWindowInterface implements ActionListener, C
         cardIndex = 0;
 
         ServiceLoader<UICardProvider> serviceLoader = ServiceLoader.load(UICardProvider.class);
-        Set<UICardInfo> cardInfos = new TreeSet<UICardInfo>();
+        Set<UICardInfo> cardInfos = new TreeSet<>();
         for(UICardProvider provider : serviceLoader) {
             cardInfos.addAll(provider.getCardInfos(this));
         }
@@ -192,6 +192,7 @@ public class MainWindow extends MainWindowInterface implements ActionListener, C
     }
 
     @Override
+    @SuppressWarnings("rawtypes")
     public ListModel getFilesList() {
         return fileChooseCard.getFilesList().getModel();
     }
@@ -207,6 +208,7 @@ public class MainWindow extends MainWindowInterface implements ActionListener, C
     //------------------------------------------------------------
     // EVENTS
     //------------------------------------------------------------
+    @Override
     public void actionPerformed(ActionEvent e) {
         CardLayout cardLayout = (CardLayout)mainPanel.getLayout();
         if(nextButton == e.getSource()) {
@@ -219,10 +221,12 @@ public class MainWindow extends MainWindowInterface implements ActionListener, C
         nextButton.setVisible(cardIndex != (cardsCount - 1));
     }
 
+    @Override
     public void componentShown(ComponentEvent e) {
 
     }
 
+    @Override
     public void componentResized(ComponentEvent e) {
         if(!maximized) {
             Rectangle size = mainPanel.getBounds();
@@ -231,14 +235,17 @@ public class MainWindow extends MainWindowInterface implements ActionListener, C
         }
     }
 
+    @Override
     public void componentMoved(ComponentEvent e) {
 
     }
 
+    @Override
     public void componentHidden(ComponentEvent e) {
 
     }
 
+    @Override
     public void windowStateChanged(WindowEvent e) {
         maximized = (MAXIMIZED_BOTH & e.getNewState()) != 0;
         Settings.setSetting("window.maximixed", Boolean.toString(maximized));

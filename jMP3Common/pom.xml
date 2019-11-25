@@ -9,7 +9,7 @@
   	<dependency>
   		<groupId>org.slf4j</groupId>
   		<artifactId>slf4j-api</artifactId>
-  		<version>1.6.1</version>
+  		<version>1.7.29</version>
   		<type>jar</type>
   		<scope>compile</scope>
   	</dependency>
@@ -24,13 +24,6 @@
   		<groupId>com.mscg</groupId>
   		<artifactId>jMP3i18n</artifactId>
   		<version>1.0.0</version>
-  		<scope>compile</scope>
-  	</dependency>
-  	<dependency>
-  		<groupId>com.mscg</groupId>
-  		<artifactId>jMP3Service</artifactId>
-  		<version>1.0.0</version>
-  		<type>jar</type>
   		<scope>compile</scope>
   	</dependency>
   </dependencies>

@@ -1,9 +1,8 @@
 package com.mp3.ui.parsers;
 
 import java.util.Map;
+import java.util.ServiceLoader;
 import java.util.TreeMap;
-
-import com.mscg.jmp3.util.service.ServiceLoader;
 
 public class FilenameParserProvider {
 
@@ -18,7 +17,7 @@ public class FilenameParserProvider {
 
     private static void initParsers() throws ExistingParserIDException {
         ServiceLoader<FilenamePatternParser> serviceLoader = ServiceLoader.load(FilenamePatternParser.class);
-        parsers = new TreeMap<String, FilenamePatternParser>();
+        parsers = new TreeMap<>();
         for(FilenamePatternParser parser : serviceLoader) {
             String parserID = parser.getParserID();
             if(parsers.containsKey(parserID))

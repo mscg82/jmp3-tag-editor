@@ -2,17 +2,17 @@ package com.mscg.asf;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.ServiceLoader;
 
 import com.mscg.asf.guid.ASFObjectGUID;
 import com.mscg.asf.impl.ASFGenericObject;
-import com.mscg.jmp3.util.service.ServiceLoader;
 
 public class ASFObjectFactory {
 
     private static Map<ASFObjectGUID, Class<? extends ASFObject>> objects;
 
     static {
-        objects = new LinkedHashMap<ASFObjectGUID, Class<? extends ASFObject>>();
+        objects = new LinkedHashMap<>();
         ServiceLoader<ASFObjectProvider> serviceLoader = ServiceLoader.load(ASFObjectProvider.class);
         for(ASFObjectProvider provider : serviceLoader) {
             objects.putAll(provider.getGUIDsToObjects());
