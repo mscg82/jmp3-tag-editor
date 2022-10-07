@@ -2,8 +2,10 @@ target
 .project
 .classpath
 .settings
+.idea
 **/target
 **/.project
 **/.classpath
 **/.settings
+**/.idea
 
